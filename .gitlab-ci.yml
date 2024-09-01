@@ -1,0 +1,16 @@
+image: "ghcr.io/cirruslabs/flutter:stable"
+
+stages:
+  - analyze_and_test
+  - preview
+
+analyze:
+  stage: analyze_and_test
+  before_script:
+    - |
+      cat <<EOF > .env
+      EOF
+  script:
+    - flutter analyze --fatal-infos --fatal-warnings
+  only:
+    - merge_requests
