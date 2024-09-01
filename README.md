@@ -25,7 +25,7 @@
 ### VS Code (Recomendado)
 
 - Download do VS Code em [https://code.visualstudio.com/](https://code.visualstudio.com/).
-- Instale as extensões do Flutter e do Dart no menu à esquerda.
+- Instale as extensões do **Flutter** e do **Dart** no menu à esquerda. É recomendado instalar também a extensão **bloc**.
 - Use a opção `Dart: Use Recommended Settings` acessando `CTRL + SHIFT + P`.
 
 ### Android Studio
