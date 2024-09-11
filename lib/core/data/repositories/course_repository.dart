@@ -10,13 +10,13 @@ class CourseRepository implements ICourseRepository {
 
   @override
   Future<Set<Course>> getAllCourses() async {
-    sleep(Duration(seconds: 10));
-    return new Set<Course>.from([
-      Course(id: 1, name: 'aa'),
-      Course(
+    sleep(const Duration(seconds: 10));
+    return <Course>{
+      const Course(id: 1, name: 'aa'),
+      const Course(
         id: 2,
         name: 'bb',
       ),
-    ]);
+    };
   }
 }
