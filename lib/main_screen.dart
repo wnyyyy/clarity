@@ -1,64 +1,62 @@
+import 'package:clarity_frontend/config/app_router.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class MainScreen extends StatelessWidget {
+  final Widget child;
 
-  final String title;
+  const MainScreen({super.key, required this.child});
 
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+  static const Map<String,
+          ({int index, String label, IconData icon, IconData selectedIcon})>
+      _routeConfig = {
+    AppRouter.courses: (
+      index: 0,
+      label: 'pag1',
+      icon: Icons.school_outlined,
+      selectedIcon: Icons.school
+    ),
+    AppRouter.home: (
+      index: 1,
+      label: 'pag2',
+      icon: Icons.person_outline,
+      selectedIcon: Icons.person
+    ),
+  };
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+        title: const Text('Clarity'),
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
+      body: child,
+      bottomNavigationBar: NavigationBar(
+        selectedIndex: _calculateSelectedIndex(context),
+        onDestinationSelected: (int index) => _onItemTapped(index, context),
+        destinations: _routeConfig.entries
+            .map(
+              (entry) => NavigationDestination(
+                icon: Icon(entry.value.icon),
+                selectedIcon: Icon(entry.value.selectedIcon),
+                label: entry.value.label,
+              ),
+            )
+            .toList(),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
+  }
+
+  int _calculateSelectedIndex(BuildContext context) {
+    final currentRoute = GoRouterState.of(context).uri.toString();
+    return _routeConfig[currentRoute]?.index ?? 0;
+  }
+
+  void _onItemTapped(int index, BuildContext context) {
+    final destination = _routeConfig.entries.firstWhere(
+      (entry) => entry.value.index == index,
+      orElse: () => _routeConfig.entries.first,
+    );
+    GoRouter.of(context).go(destination.key);
   }
 }

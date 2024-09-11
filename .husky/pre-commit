@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+printf "\nRunning pre-commit hook...\n\n"
+
+dart format .
+dart analyze --fatal-infos --fatal-warnings .
+
+printf "\nPre-commit hook finished!\n\n"

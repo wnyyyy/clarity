@@ -1,9 +1,9 @@
+import 'package:clarity_frontend/config/app_router.dart';
+import 'package:clarity_frontend/config/themes.dart';
 import 'package:clarity_frontend/core/data/interfaces/i_course_repository.dart';
 import 'package:clarity_frontend/core/data/repositories/course_repository.dart';
 import 'package:clarity_frontend/features/courses/bloc/course_bloc.dart';
-import 'package:clarity_frontend/features/courses/presentation/screens/course_list_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -20,30 +20,20 @@ class ClarityApp extends StatelessWidget {
         Provider<ICourseRepository>(
           create: (_) => CourseRepository(apiUri: Uri.parse('uri')),
         ),
+        ProxyProvider<ICourseRepository, CourseBloc>(
+          create: (context) => CourseBloc(
+            courseRepository: context.read<ICourseRepository>(),
+          ),
+          update: (context, repository, previous) =>
+              previous ?? CourseBloc(courseRepository: repository),
+        ),
       ],
       builder: (context, child) {
-        return BlocProvider(
-          create: (_) => CourseBloc(
-            courseRepository: Provider.of<ICourseRepository>(context),
-          ),
-          child: MaterialApp(
-            title: 'Clarity',
-            theme: ThemeData(
-              colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-              useMaterial3: true,
-            ),
-            home: Scaffold(
-              bottomNavigationBar: const SizedBox(
-                height: 200,
-                width: 100,
-                child: ColoredBox(color: Colors.deepPurpleAccent),
-              ),
-              appBar: AppBar(
-                title: const Text(' '),
-              ),
-              body: const CourseListScreen(),
-            ),
-          ),
+        return MaterialApp.router(
+          title: 'Clarity',
+          theme: AppTheme.lightTheme,
+          darkTheme: AppTheme.darkTheme,
+          routerConfig: AppRouter.router,
         );
       },
     );

@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:clarity_frontend/core/data/interfaces/i_course_repository.dart';
 import 'package:clarity_frontend/core/data/models/course.dart';
 
@@ -10,7 +8,6 @@ class CourseRepository implements ICourseRepository {
 
   @override
   Future<Set<Course>> getAllCourses() async {
-    sleep(const Duration(seconds: 10));
     return <Course>{
       const Course(id: 1, name: 'aa'),
       const Course(
