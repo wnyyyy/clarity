@@ -13,19 +13,19 @@ class MainScreen extends StatelessWidget {
     AppRouter.courses: (
       index: 0,
       label: 'Cursos',
-      icon: Icons.book,
+      icon: Icons.book_outlined,
       selectedIcon: Icons.book
     ),
     AppRouter.home: (
       index: 1,
       label: 'Home',
-      icon: Icons.home,
+      icon: Icons.home_outlined,
       selectedIcon: Icons.home
     ),
     AppRouter.profile: (
       index: 2,
       label: 'Perfil',
-      icon: Icons.person,
+      icon: Icons.person_outline,
       selectedIcon: Icons.person
     ),
   };
