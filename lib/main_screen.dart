@@ -28,7 +28,18 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Clarity'),
+        title: ColorFiltered(
+          colorFilter: const ColorFilter.mode(
+            Colors.white,
+            BlendMode.srcIn,
+          ),
+          child: Image.asset(
+            'assets/images/logo_azul.png',
+            height: 80,
+            fit: BoxFit.contain,
+          ),
+        ),
+        centerTitle: true, // Center the logo in the AppBar
       ),
       body: child,
       bottomNavigationBar: NavigationBar(

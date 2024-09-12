@@ -9,11 +9,9 @@ class CourseRepository implements ICourseRepository {
   @override
   Future<Set<Course>> getAllCourses() async {
     return <Course>{
-      const Course(id: 1, name: 'aa'),
-      const Course(
-        id: 2,
-        name: 'bb',
-      ),
+      const Course(id: 1, name: 'Português', progress: 47, level: 2),
+      const Course(id: 2, name: 'Matematica', progress: 33, level: 1),
+      const Course(id: 3, name: 'Química', progress: 28, level: 1),
     };
   }
 }
