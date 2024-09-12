@@ -9,20 +9,13 @@ class CourseInterestSelectionScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.only(
-            top: 16.0,
-            left: 26.0,
-            right: 26.0,
-          ),
-          child: Text(
-            'Selecione os conteúdos que deseja estudar',
-            style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                  color: Theme.of(context).colorScheme.primary,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 2.0,
-                ),
-          ),
+        Text(
+          'Selecione os conteúdos que deseja estudar',
+          style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                color: Theme.of(context).colorScheme.primary,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 2.0,
+              ),
         ),
         const Expanded(
           child: CourseSelectionList(

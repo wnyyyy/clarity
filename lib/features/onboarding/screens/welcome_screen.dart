@@ -9,20 +9,14 @@ class WelcomeScreen extends StatelessWidget {
       physics: const ClampingScrollPhysics(),
       child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.only(
-              top: 16.0,
-              left: 26.0,
-              right: 26.0,
-            ),
-            child: Text(
-              'Boas vindas ao Clarity!',
-              style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                    color: Theme.of(context).colorScheme.primary,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 2.0,
-                  ),
-            ),
+          Text(
+            'Boas vindas ao Clarity!',
+            style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                  color: Theme.of(context).colorScheme.primary,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 2.0,
+                ),
+            textAlign: TextAlign.center,
           ),
           Padding(
             padding:

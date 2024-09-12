@@ -1,5 +1,6 @@
 import 'package:clarity_frontend/config/app_router.dart';
 import 'package:clarity_frontend/features/onboarding/screens/course_interest_selection_screen.dart';
+import 'package:clarity_frontend/features/onboarding/screens/theme_screen.dart';
 import 'package:clarity_frontend/features/onboarding/screens/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -18,6 +19,7 @@ class _OnboardingHandlerState extends State<OnboardingHandler> {
   final List<Widget> _pages = [
     const WelcomeScreen(),
     const CourseInterestSelectionScreen(),
+    const ThemeScreen(),
   ];
 
   @override
@@ -39,7 +41,7 @@ class _OnboardingHandlerState extends State<OnboardingHandler> {
         _currentPage++;
       });
     } else {
-      context.go(AppRouter.home);
+      context.go(AppRouter.courses);
     }
   }
 
@@ -120,7 +122,15 @@ class _OnboardingHandlerState extends State<OnboardingHandler> {
                 ),
                 child: AnimatedSwitcher(
                   duration: const Duration(milliseconds: 500),
-                  child: _pages[_currentPage],
+                  child: Container(
+                    height: double.infinity,
+                    padding: const EdgeInsets.only(
+                      top: 32,
+                      left: 24,
+                      right: 24,
+                    ),
+                    child: _pages[_currentPage],
+                  ),
                   transitionBuilder:
                       (Widget child, Animation<double> animation) {
                     return FadeTransition(
@@ -131,12 +141,28 @@ class _OnboardingHandlerState extends State<OnboardingHandler> {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: IconButton.filledTonal(
-                onPressed: _nextPage,
-                iconSize: 36,
-                icon: const Icon(Icons.keyboard_arrow_right),
+            Visibility(
+              visible: _currentPage == _pages.length - 1,
+              child: Container(
+                alignment: Alignment.center,
+                padding: const EdgeInsets.only(bottom: 12),
+                child: FilledButton(
+                  onPressed: _nextPage,
+                  child: const Text(
+                    'Vamos começar!',
+                  ),
+                ),
+              ),
+            ),
+            Visibility(
+              visible: _currentPage < _pages.length - 1,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: IconButton.filledTonal(
+                  onPressed: _nextPage,
+                  iconSize: 36,
+                  icon: const Icon(Icons.keyboard_arrow_right),
+                ),
               ),
             ),
             Padding(
