@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 class AppRouter {
   static const String home = '/';
   static const String courses = '/courses';
+  static const String profile = '/profile';
 
   static final GoRouter router = GoRouter(
     routes: <RouteBase>[
@@ -32,6 +33,14 @@ class AppRouter {
                   value: context.read<CourseBloc>(),
                   child: const CourseListScreen(),
                 ),
+              );
+            },
+          ),
+          GoRoute(
+            path: profile,
+            pageBuilder: (BuildContext context, GoRouterState state) {
+              return const NoTransitionPage(
+                child: Text('perfil'),
               );
             },
           ),

@@ -12,14 +12,20 @@ class MainScreen extends StatelessWidget {
       _routeConfig = {
     AppRouter.courses: (
       index: 0,
-      label: 'pag1',
-      icon: Icons.school_outlined,
-      selectedIcon: Icons.school
+      label: 'Cursos',
+      icon: Icons.book,
+      selectedIcon: Icons.book
     ),
     AppRouter.home: (
       index: 1,
-      label: 'pag2',
-      icon: Icons.person_outline,
+      label: 'Home',
+      icon: Icons.home,
+      selectedIcon: Icons.home
+    ),
+    AppRouter.profile: (
+      index: 2,
+      label: 'Perfil',
+      icon: Icons.person,
       selectedIcon: Icons.person
     ),
   };
