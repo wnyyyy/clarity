@@ -44,7 +44,7 @@ class CourseListScreen extends StatelessWidget {
             style: Theme.of(context).textTheme.bodyLarge,
             children: [
               TextSpan(
-                text: "aluno(a)",
+                text: "(usuário)",
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                       color: Colors.blueAccent,
                     ),
@@ -64,10 +64,10 @@ class CourseListScreen extends StatelessWidget {
                 : const Color(
                     0xFF2C2C2C,
                   ), // Cor da barra de pesquisa ajustada
-            hintText: 'Busca Rápida de Cursos',
+            hintText: 'Buscar um curso...',
             contentPadding: const EdgeInsets.symmetric(
-              vertical: 15,
-              horizontal: 15,
+              vertical: 14,
+              horizontal: 14,
             ), // Ajusta o padding para uma melhor apresentação
             suffixIcon: const Icon(Icons.search), // Ícone da lupa no final
             border: OutlineInputBorder(
@@ -77,13 +77,6 @@ class CourseListScreen extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 16),
-        Text(
-          "Lista de Cursos",
-          style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                color: Colors.blueAccent,
-                fontWeight: FontWeight.bold,
-              ),
-        ),
         Expanded(child: CoursesList(courses: state.courses.toList())),
       ],
     );

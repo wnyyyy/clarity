@@ -1,4 +1,3 @@
-import 'package:clarity_frontend/config/themes.dart';
 import 'package:clarity_frontend/core/data/models/course.dart';
 import 'package:flutter/material.dart';
 import 'package:numerus/numerus.dart';
@@ -14,7 +13,7 @@ class CoursesList extends StatelessWidget {
       itemBuilder: (context, index) {
         final Course course = courses.elementAt(index);
         return Container(
-          margin: const EdgeInsets.all(10.0),
+          margin: const EdgeInsets.all(6.0),
           decoration: BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topLeft,
@@ -22,21 +21,21 @@ class CoursesList extends StatelessWidget {
               colors: index.isEven
                   ? [
                       Theme.of(context).colorScheme.primary,
-                      Theme.of(context).colorScheme.primaryFixedDim,
+                      Theme.of(context).colorScheme.primaryContainer,
                     ]
                   : [
                       Theme.of(context).colorScheme.tertiary,
-                      Theme.of(context).colorScheme.tertiaryFixedDim,
+                      Theme.of(context).colorScheme.tertiaryContainer,
                     ],
             ),
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(16),
           ),
           child: ListTile(
             minTileHeight: 100,
             title: Text(
               course.name,
               style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                    color: AppTheme.appSecondaryColor,
+                    color: Theme.of(context).colorScheme.onPrimary,
                     fontWeight: FontWeight.bold,
                   ),
             ),
@@ -46,8 +45,8 @@ class CoursesList extends StatelessWidget {
                 const SizedBox(height: 8),
                 LinearProgressIndicator(
                   value: course.progress / 100,
-                  backgroundColor: AppTheme.appSecondaryColor,
-                  color: AppTheme.appPrimaryColor,
+                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                  color: Theme.of(context).colorScheme.inversePrimary,
                 ),
                 const SizedBox(height: 4),
                 RichText(
@@ -57,7 +56,7 @@ class CoursesList extends StatelessWidget {
                         text:
                             "Nível ${course.level.toRomanNumeralString()}: ${course.progress}%",
                         style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                              color: AppTheme.appSecondaryColor,
+                              color: Theme.of(context).colorScheme.onPrimary,
                               fontWeight: FontWeight.bold,
                             ),
                       ),

@@ -27,12 +27,14 @@ class ClarityApp extends StatelessWidget {
           update: (context, repository, previous) =>
               previous ?? CourseBloc(courseRepository: repository),
         ),
+        ChangeNotifierProvider(create: (_) => ThemeNotifier()),
       ],
       builder: (context, child) {
+        final themeNotifier = Provider.of<ThemeNotifier>(context);
         return MaterialApp.router(
           title: 'Clarity',
-          theme: AppTheme.lightTheme,
-          darkTheme: AppTheme.darkTheme,
+          theme: AppTheme.light(primaryColor: themeNotifier.primaryColor),
+          darkTheme: AppTheme.dark(primaryColor: themeNotifier.primaryColor),
           routerConfig: AppRouter.router,
         );
       },

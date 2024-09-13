@@ -2,41 +2,56 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
-  static const Color appPrimaryColor = Color(0xFF9BD1EB);
-  static const Color appSecondaryColor = Color(0xFFF6F4F5);
+  static const Color _defaultPrimaryColor = Color(0xFF9BD1EB);
 
-  static final ThemeData lightTheme = ThemeData(
-    useMaterial3: true,
-    brightness: Brightness.light,
-    colorScheme: ColorScheme.fromSeed(
-      seedColor: appPrimaryColor,
-    ),
-    appBarTheme: const AppBarTheme(
-      backgroundColor: appPrimaryColor,
-      foregroundColor: appSecondaryColor,
-    ),
-    floatingActionButtonTheme: const FloatingActionButtonThemeData(
-      backgroundColor: appPrimaryColor,
-      foregroundColor: appSecondaryColor,
-    ),
-    textTheme: GoogleFonts.fredokaTextTheme(ThemeData.light().textTheme),
-  );
+  static ThemeData _createTheme(Color primaryColor, Brightness brightness) {
+    final ColorScheme colorScheme = ColorScheme.fromSeed(
+      seedColor: _defaultPrimaryColor,
+      brightness: brightness,
+    );
 
-  static final ThemeData darkTheme = ThemeData(
-    useMaterial3: true,
-    brightness: Brightness.dark,
-    colorScheme: ColorScheme.fromSeed(
-      seedColor: appPrimaryColor,
-      brightness: Brightness.dark,
-    ),
-    appBarTheme: AppBarTheme(
-      backgroundColor: appPrimaryColor.withOpacity(0.2),
-      foregroundColor: appSecondaryColor,
-    ),
-    floatingActionButtonTheme: const FloatingActionButtonThemeData(
-      backgroundColor: appPrimaryColor,
-      foregroundColor: appSecondaryColor,
-    ),
-    textTheme: GoogleFonts.fredokaTextTheme(ThemeData.dark().textTheme),
-  );
+    return ThemeData(
+      useMaterial3: true,
+      colorScheme: colorScheme,
+      appBarTheme: AppBarTheme(
+        backgroundColor: colorScheme.primary,
+        foregroundColor: colorScheme.onPrimary,
+      ),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: colorScheme.primary,
+        foregroundColor: colorScheme.onPrimary,
+      ),
+      textTheme: GoogleFonts.fredokaTextTheme(
+        brightness == Brightness.light
+            ? ThemeData.light().textTheme
+            : ThemeData.dark().textTheme,
+      ),
+    );
+  }
+
+  static ThemeData light({Color primaryColor = _defaultPrimaryColor}) {
+    return _createTheme(primaryColor, Brightness.light);
+  }
+
+  static ThemeData dark({Color primaryColor = _defaultPrimaryColor}) {
+    return _createTheme(primaryColor, Brightness.dark);
+  }
+}
+
+class ThemeNotifier extends ChangeNotifier {
+  ThemeMode _themeMode = ThemeMode.system;
+  Color _primaryColor = AppTheme._defaultPrimaryColor;
+
+  ThemeMode get themeMode => _themeMode;
+  Color get primaryColor => _primaryColor;
+
+  void setThemeMode(ThemeMode mode) {
+    _themeMode = mode;
+    notifyListeners();
+  }
+
+  void setPrimaryColor(Color color) {
+    _primaryColor = color;
+    notifyListeners();
+  }
 }

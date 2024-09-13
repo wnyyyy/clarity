@@ -35,8 +35,9 @@ class MainScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: ColorFiltered(
-          colorFilter: const ColorFilter.mode(
-            Colors.white,
+          colorFilter: ColorFilter.mode(
+            Theme.of(context).appBarTheme.foregroundColor ??
+                Theme.of(context).colorScheme.onPrimary,
             BlendMode.srcIn,
           ),
           child: Image.asset(
@@ -45,7 +46,7 @@ class MainScreen extends StatelessWidget {
             fit: BoxFit.contain,
           ),
         ),
-        centerTitle: true, // Center the logo in the AppBar
+        centerTitle: true,
       ),
       body: child,
       bottomNavigationBar: NavigationBar(
