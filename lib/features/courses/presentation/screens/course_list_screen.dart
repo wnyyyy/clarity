@@ -1,3 +1,4 @@
+import 'package:clarity_frontend/core/widgets/error_handler.dart';
 import 'package:clarity_frontend/features/courses/bloc/course_bloc.dart';
 import 'package:clarity_frontend/features/courses/bloc/course_event.dart';
 import 'package:clarity_frontend/features/courses/bloc/course_state.dart';
@@ -25,7 +26,9 @@ class CourseListScreen extends StatelessWidget {
             return _buildLoadedState(context, state);
           }
           if (state is CourseListError) {
-            return const Center(child: Text('Failed to load courses'));
+            return ErrorHandler(
+              onRetry: () => context.read<CourseBloc>().add(LoadCourseList()),
+            );
           }
           return const Center();
         },
@@ -63,12 +66,12 @@ class CourseListScreen extends StatelessWidget {
                 ? const Color(0xFFF0F1F2)
                 : const Color(
                     0xFF2C2C2C,
-                  ), // Cor da barra de pesquisa ajustada
+                  ),
             hintText: 'Buscar um curso...',
             contentPadding: const EdgeInsets.symmetric(
               vertical: 14,
               horizontal: 14,
-            ), // Ajusta o padding para uma melhor apresentação
+            ),
             suffixIcon: const Icon(Icons.search), // Ícone da lupa no final
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),
@@ -77,7 +80,7 @@ class CourseListScreen extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 16),
-        Expanded(child: CoursesList(courses: state.courses.toList())),
+        Expanded(child: CoursesList(courses: state.filteredCourses)),
       ],
     );
   }

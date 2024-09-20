@@ -19,7 +19,7 @@ class ErrorHandler extends StatelessWidget {
           if (message != null) Text(message!),
           if (onRetry != null)
             ElevatedButton(
-              onPressed: () => onRetry!(),
+              onPressed: onRetry,
               child: const Text('Tentar novamente'),
             ),
         ],
