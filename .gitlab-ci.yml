@@ -1,16 +1,38 @@
 image: "ghcr.io/cirruslabs/flutter:stable"
 
 stages:
-  - analyze_and_test
-  - preview
+  - analyze
+  - test
 
 analyze:
-  stage: analyze_and_test
+  stage: analyze
   before_script:
     - |
       cat <<EOF > .env
       EOF
   script:
     - flutter analyze --fatal-infos --fatal-warnings
+  only:
+    - merge_requests
+
+test:
+  stage: test
+  script:
+    - flutter test
+  only:
+    - merge_requests
+
+coverage:
+  stage: test
+  script:
+    - dart pub run full_coverage
+    - flutter test --coverage
+    - flutter pub global activate coverage
+    - flutter pub global run coverage:format_coverage --lcov --in=coverage --out=coverage/lcov.info --packages=.packages --report-on=lib
+    - genhtml coverage/lcov.info --output=coverage
+  coverage: '/lines\.*: \d+\.\d+\%/'
+  artifacts:
+    paths:
+      - coverage
   only:
     - merge_requests
